@@ -1,27 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ItemView from "../components/ItemView";
+import { listOfItems } from "../data/item_list";
 
 const DashboardCustomer = ({route}) => {
+    const [itemList,setItemList] = useState(listOfItems);
     const username = "USER"; //must change
     console.log("route " + route);
+    const removeItem = () => {
+        console.log("SDSD")
+    }
 
     return <div className="">
-        <Navbar username = {username}/>
+        <Navbar username={username} />
         <Hero />
-        <ItemView item="Banana" />
-        <ItemView item="Apple" />
-        <ItemView item="Vitamin C" />
-        <ItemView item="Milo" />
-
-        {/* <h2>
-            <button onClick={goToAuth} className="group relative flex w-1/2 m-auto justify-center rounded-md 
-                 bg-black py-2 px-4 
-                text-sm font-coolvetica text-white hover:bg-darkgrey mb-5">
-                Click here to Login
-            </button>
-        </h2> */}
+        {itemList.map((values,index) => {
+            return <ItemView data= {values} handleClick= {removeItem} />
+        })} 
     </div>
 }
 

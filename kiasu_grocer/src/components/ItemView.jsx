@@ -1,6 +1,9 @@
 import React from 'react'
 
 function ItemView(props) {
+    const handleClick = () => {
+        props.handleClick();
+    }
     return (
         <div className='box w-full flex my-4 border-2 border-black shadow-sm
         shadow-black rounded-lg px-4 py-4 bg-orange-200'>
@@ -12,18 +15,21 @@ function ItemView(props) {
 
 
                 <h1 className='font-bold text-2xl'>
-                    {props.item}
+                    {props.data.name}
                 </h1>
                 <h2>
-                    Category: Category
+                    Category: {props.data.category}
                 </h2>
                 <p>
-                    Date of Expiry: dateofexpiry
+                    Vendor: {props.data.vendor}
                 </p>
                 <p>
-                    Available until: dateoflisting
+                    Date of Expiry: {props.data.expiry_date}
                 </p>
-                <div className='space-x-5 justify-center'>
+                <p>
+                    Available until: {props.data.listing_end}
+                </p>
+                <div onClick={() => handleClick("LOL")} className='space-x-5 justify-center'>
                     <button className='box border-2 rounded-md px-5 py-auto bg-white'>
                         Buy Now
                     </button>

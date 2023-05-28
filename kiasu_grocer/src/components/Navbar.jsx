@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 const Navbar = (props) => {
     //change ^
-    var username = props.username;
+    let username = props.username;
+    console.log("NAVBAR" + props.username)
     const navigate = useNavigate();
     const goToAuthCustomer = () => navigate('/authcustomer');
     const goToAuthVendor = () => navigate('/authvendor');
