@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ItemView(props) {
+function OrderView(props) {
     const handleClick = (s) => {
         props.handleClick(s);
     }
@@ -44,4 +44,4 @@ function ItemView(props) {
     )
 }
 
-export default ItemView
+export default OrderView

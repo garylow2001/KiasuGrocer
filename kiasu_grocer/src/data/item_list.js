@@ -1,5 +1,6 @@
 export const listOfItems = [
     {
+        id: 1,
         name: "Banana",
         category: "Food",
         vendor: "NTUC",
@@ -7,6 +8,7 @@ export const listOfItems = [
         listing_end: "30 May 2023",
     },
     {
+        id: 2,
         name: "Apple",
         category: "Food",
         vendor: "7/11",
@@ -14,6 +16,7 @@ export const listOfItems = [
         listing_end: "30 May 2023",
     },
     {
+        id: 3,
         name: "Milo",
         category: "Drinks",
         vendor: "NTUC",
@@ -21,6 +24,7 @@ export const listOfItems = [
         listing_end: "1 June 2023",
     },
     {
+        id: 4,
         name: "Vitamin C",
         category: "Supplements",
         vendor: "7/11",
