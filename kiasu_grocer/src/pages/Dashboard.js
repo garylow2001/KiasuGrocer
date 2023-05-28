@@ -11,7 +11,7 @@ const Dashboard = () => {
         </h1>
         <h2>
             <button onClick={goToAuth}>
-                Click here to Login
+                Click here to Test
             </button>
         </h2>
     </div>
