@@ -17,6 +17,13 @@ class GeoTest extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.userLocation !== nextState.userLocation) {
+      return true;
+    }
+    return false;
+  }
+
   handleGeolocationSuccess = (position) => {
     const { latitude, longitude } = position.coords;
     this.setState({
@@ -30,10 +37,11 @@ class GeoTest extends Component {
 
   render() {
     const { userLocation } = this.state;
-
     return (
+      
       <div style={{ height: "100vh", width: "100%" }}>
         <h1>Geolocation Test</h1>
+        {console.log(userLocation)}
         {userLocation ? (
           <MapContainer
             center={userLocation}

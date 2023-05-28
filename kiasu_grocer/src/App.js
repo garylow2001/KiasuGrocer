@@ -3,6 +3,7 @@ import Auth from './pages/Auth';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import GeoTest from './pages/GeoTest';
+import DistFromNorm from './pages/DistFromNorm';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
               <Route path="/" element={<Dashboard/>} />
               <Route path="/auth" element={<Auth/>} />
               <Route path="/geotest" element={<GeoTest/>} />
+              <Route path="/distfromnorm" element={<DistFromNorm/>} />
         </Routes>
           </BrowserRouter>
       </main>
