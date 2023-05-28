@@ -3,10 +3,12 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ItemView from "../components/ItemView";
 
-const Dashboard = () => {
+const DashboardCustomer = ({route}) => {
+    const username = "USER"; //must change
+    console.log("route " + route);
 
     return <div className="">
-        <Navbar/>
+        <Navbar username = {username}/>
         <Hero />
         <ItemView item="Banana" />
         <ItemView item="Apple" />
@@ -23,4 +25,4 @@ const Dashboard = () => {
     </div>
 }
 
-export default Dashboard;
+export default DashboardCustomer;
