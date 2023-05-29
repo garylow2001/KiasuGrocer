@@ -18,7 +18,7 @@ function ItemView(props) {
                     {props.data.name}
                 </h1>
                 <h2>
-                    Category: {props.data.category}
+                    Price: {props.data.price}
                 </h2>
                 <p>
                     Vendor: {props.data.vendor}

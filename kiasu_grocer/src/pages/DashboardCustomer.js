@@ -6,6 +6,7 @@ import { listOfItems } from "../data/item_list";
 import { customerOrders } from "../data/customer_orders";
 import { useSelector, useDispatch } from "react-redux";
 import OrderView from "../components/OrderView";
+import PaymentPopup from "../components/PaymentPopup";
 
 const DashboardCustomer = () => {
     const appState = useSelector(state => state);
@@ -14,6 +15,7 @@ const DashboardCustomer = () => {
     // console.log("DASHBOARD APPSTATE " + appState.userLoggedIn);
 
     const [itemList, setItemList] = useState(listOfItems);
+    const [showPopup, setShowPopUp] = useState(false);
     const [orders, setOrders] = useState(customerOrders);
     const username = "USER"; //must change
     const removeItem = async (idx) => {
@@ -35,6 +37,9 @@ const DashboardCustomer = () => {
         <Navbar username={username} />
 
         <Hero />
+
+        <PaymentPopup trigger={showPopup} >
+        </PaymentPopup>
 
         {
             orders.length === 0
