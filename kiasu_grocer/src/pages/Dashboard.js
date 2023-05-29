@@ -5,6 +5,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const goToAuth = () => navigate('/auth');
 
+    //*************FROM HERE ARE TO BE ADDED*****************
     const calcDistance = (lat1, lon1, lat2, lon2) => {
         var R = 6371; // Radius of the earth in km
         var degLat = degToRad(lat2-lat1);  // deg2rad below
@@ -34,7 +35,7 @@ const Dashboard = () => {
                             return x.map(element => {
                                 return fetch("http://api.positionstack.com/v1/forward?access_key=77dd088611e15e988f32434bfe65a3db&query=" + element.premise_address, requestOptions)
                                     .then(response => response.json())
-                                    .then(result => [result.data[0].name, result.data[0].latitude, result.data[0].longitude])
+                                    .then(result => [result.data[0].name, result.data[0].latitude, result.data[0].longitude, element.business_name])
                             });
                         });
         return markets;
@@ -45,9 +46,9 @@ const Dashboard = () => {
         const handleGeolocationSuccess = (position) => {
             const { latitude, longitude } = position.coords;
             RESTresponse().then(element => 
-                element.map(promise => promise.then(x => [x[0], calcDistance(latitude, longitude, x[1], x[2])]))
-                    .filter(promise => promise.then(x => x[1] < 100)))
-            .then(fList => list = fList);
+                element.map(promise => promise.then(x => [x[0], calcDistance(latitude, longitude, x[1], x[2]), x[3]]))
+                    .filter(promise => promise.then(x => x[1] < 3)))
+            .then(fList => console.log(fList));
         };
         
         const handleGeolocationError = (error) => {
