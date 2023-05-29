@@ -85,11 +85,11 @@ const Dashboard = () => {
             fetchData();
             rendered = true;
             // NEW LINES OF CODE HERE
-            const newList = itemList.map((values,index) => {
-                const newValue = vendorDetails[index][0].toString() + " " + vendorDetails[index][1].toString() + " " + vendorDetails[index][2].toFixed(2).toString();
-                return {...itemList[index], vendor:newValue};
-            })
-            setItemList(newList);
+            // const newList = itemList.map((values,index) => {
+            //     const newValue = vendorDetails[index][0].toString() + " " + vendorDetails[index][1].toString() + " " + vendorDetails[index][2].toFixed(2).toString();
+            //     return {...itemList[index], vendor:newValue};
+            // })
+            // setItemList(newList);
             // THIS SHOULD SET THE VALUES OF THE ITEMLIST SUCH THAT the "VENDOR" = vendor + street name + distance rounded to 2dp
         }
     },[]);

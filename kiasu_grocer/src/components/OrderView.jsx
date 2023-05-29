@@ -9,7 +9,14 @@ function OrderView(props) {
         shadow-black rounded-lg px-4 py-4 bg-orange-200'>
 
             <div className='justify-center mx-24 my-auto bg-white'>
-                IMAGE OF ITEM
+                {
+                    props.data.name === 'Apple' ? <img src={require('../assets/apple.jpg')} height={250} width={250} /> :
+                    props.data.name === 'Banana' ? <img src={require('../assets/bananas.jpg')} height={250} width={250} /> :
+                    props.data.name === 'Milo 3L' ? <img src={require('../assets/milo.jpg')} height={250} width={250} /> :
+                    props.data.name === 'Vitamin C 100g' ? <img src={require('../assets/vitaminc.jpg')} height={250} width={250} /> :
+                    props.data.name === 'Shampoo' ? <img src={require('../assets/shampoo.jpg')} height={250} width={250} /> :
+                    "IMAGE"
+                }
             </div>
             <div className='text-left'>
 
