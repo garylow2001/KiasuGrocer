@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
     const [vendorDetails, setVendorDetails] = useState([]);
+    const navigate = useNavigate();
+    const [itemList, setItemList] = useState(listOfItems);
+    const goToAuthCustomer = async () => await navigate('/authcustomer');
 
 
     //*************FROM HERE ARE TO BE ADDED*****************
@@ -30,10 +33,10 @@ const Dashboard = () => {
     const RESTresponse = () => {
         var requestOptions = {
             method: 'GET',
-            redirect: 'follow'
+            redirect: 'follow',
         };
 
-        let markets = fetch("https://data.gov.sg/api/action/datastore_search?resource_id=df586152-d00f-4b15-b667-9e268f1b60df&limit=5", requestOptions)
+        let markets = fetch("http://data.gov.sg/api/action/datastore_search?resource_id=df586152-d00f-4b15-b667-9e268f1b60df&limit=5", requestOptions)
             .then(response => response.json())
             .then(result => result.result.records)
             .then(x => {
@@ -52,8 +55,12 @@ const Dashboard = () => {
             return RESTresponse().then(element => 
                     element.map(promise => promise.then(x => [x[0], calcDistance(latitude, longitude, x[1], x[2]), x[3]]))
                         .filter(promise => promise.then(x => x[1] < 3)))
-                .then(fList => Promise.all(fList))
-                .catch(x => []);
+                .catch(x => [])
+                .then(fList => {
+                    console.log(fList);
+                    fList.forEach(element => element.then(deets => setVendorDetails(vendorDetails.push(deets))))
+                })
+                .then(x => console.log(vendorDetails));
         };
 
         const handleGeolocationError = (error) => {
@@ -72,14 +79,25 @@ const Dashboard = () => {
         }
     }
 
-
-    const navigate = useNavigate();
-    const [itemList, setItemList] = useState(listOfItems);
-    const goToAuthCustomer = async () => await navigate('/authcustomer');
-
+    let rendered = false;
     useEffect(() => {
-        // fetchData();
-    }, [])
+        if(!rendered) {
+            fetchData();
+            rendered = true;
+            // NEW LINES OF CODE HERE
+            const newList = itemList.map((values,index) => {
+                const newValue = vendorDetails[index][0].toString() + " " + vendorDetails[index][1].toString() + " " + vendorDetails[index][2].toFixed(2).toString();
+                return {...itemList[index], vendor:newValue};
+            })
+            setItemList(newList);
+            // THIS SHOULD SET THE VALUES OF THE ITEMLIST SUCH THAT the "VENDOR" = vendor + street name + distance rounded to 2dp
+        }
+    },[]);
+
+    //here
+    useEffect(() => {
+        console.log(vendorDetails);
+    }, [vendorDetails])
 
     return <div className="">
         <Navbar />
