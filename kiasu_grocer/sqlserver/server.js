@@ -1,8 +1,10 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
+app.use(bodyParser.json());
 
 app.use(cors());
 
@@ -90,8 +92,8 @@ app.get('/api/products', (req, res) => {
 });
 
 // API for creating products
-app.get('/api/products/create', (req, res) => {
-  const { name, price, description, discount, expiry_date, quantity, image, vendor_id } = req.query;
+app.post('/api/products/create', (req, res) => {
+  const { name, price, description, discount, expiry_date, quantity, image, vendor_id } = req.body;
 
   if (!name || !price || !description || !discount || !vendor_id || !quantity) {
     res.status(400).json({ error: 'Missing required fields' });
@@ -101,7 +103,7 @@ app.get('/api/products/create', (req, res) => {
   const params = [name, price, description, discount, expiry_date, quantity, vendor_id];
   let query = `INSERT INTO products (name, price, description, discount, expiry_date, quantity, vendor_id) VALUES (?, ?, ?, ?, ?, ?, ?);`;
 
-  if (image) {
+  if (req.body.image) {
     params.splice(6, 0, Buffer.from(image, 'base64'));
     query = `INSERT INTO products (name, price, description, discount, expiry_date, quantity, image, vendor_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
   }
@@ -133,7 +135,7 @@ const getProductById = (req, res, callback) => {
 app.get('/api/products/:id', (req, res) => getProductById(req, res, (row, res) => res.json(row)));
 
 // API for updating products
-app.get('/api/products/update/:id', (req, res) => {
+app.post('/api/products/update/:id', (req, res) => {
   const { id } = req.params;
   const { name, price, description, discount, expiry_date, quantity, image } = req.query;
 
@@ -162,7 +164,7 @@ app.get('/api/products/update/:id', (req, res) => {
 });
 
 // API for deleting products
-app.get('/api/products/delete/:id', (req, res) => {
+app.post('/api/products/delete/:id', (req, res) => {
   const { id } = req.params;
   
   db.run(`DELETE FROM products WHERE id = ?;`, [id], (error) => {

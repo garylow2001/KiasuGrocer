@@ -6,6 +6,9 @@ import Dashboard from './pages/Dashboard';
 import DashboardCustomer from './pages/DashboardCustomer';
 import VendorProducts from './pages/VendorProducts';
 import ViewProduct from './pages/ViewProduct';
+import NewProductForm from './pages/NewProductForm'
+
+
 function App() {
   return (
     <main className="App bg-cream text-center
@@ -17,8 +20,9 @@ function App() {
           <Route path="/authcustomer" element={<AuthCustomer />} />
           <Route path="/authvendor" element={<AuthVendor />} />
           <Route path="/dashboardcustomer" element={<DashboardCustomer/>} />
-          <Route exact path="/vendorproducts" element={<VendorProducts/>} />
-          <Route path="/viewproduct/:id" element={<ViewProduct/>} />
+          <Route exact path="/vendor/vendorproducts" element={<VendorProducts/>} />
+          <Route path="/vendor/viewproduct/:id" element={<ViewProduct/>} />
+          <Route path="/vendor/:id/newproduct" element={<NewProductForm/>} />
         </Routes>
       </BrowserRouter>
     </main>
