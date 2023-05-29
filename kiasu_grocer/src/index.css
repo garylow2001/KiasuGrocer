@@ -23,3 +23,8 @@ code {
   border: 1px solid #ccc;
 }
 
+.clickable-cell{
+  background-color: #ffc;
+  border: 1px solid #ccc;
+}
+

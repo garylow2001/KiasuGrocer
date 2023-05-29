@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 //import axios from 'axios';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+
 
 
 function EditProduct() {
-  const { id } = useParams();
+  const { vid, id } = useParams();
   const location = useLocation();
   const product = location.state;
   console.log(product.name); 
+  const history = useNavigate();
   //const { name, description, price, quantity, expiryDate, image } = product;
 
   const [productName, setProductName] = useState(product.name);
@@ -90,6 +92,7 @@ function EditProduct() {
       // Handle any network or other errors
       console.log('Error:', error.message);
     }
+    history(`/vendor/${vid}/products`);
   };
 
   return (
@@ -100,31 +103,38 @@ function EditProduct() {
           Product Name:
           <input type="text" value={productName} onChange={handleProductNameChange} />
         </label>
+        <br />
         <label>
           Description:
           <textarea value={description} onChange={handleDescriptionChange}></textarea>
         </label>
+        <br />
         <label>
           Price:
           <input type="number" value={price} onChange={handlePriceChange} />
         </label>
+        <br />
         <label>
           Quantity:
           <input type="number" value={quantity} onChange={handleQuantityChange} />
         </label>
+        <br />
         <label>
           Expiry Date:
           <input type="date" value={expiryDate} onChange={handleExpiryDateChange} />
         </label>
+        <br />
         <label>
           Image:
           <input type="file" onChange={handleImageChange} />
         </label>
+        <br />
         <label>
           Discount:
           <input type="number" value={discount} onChange={handleDiscountChange} />
         </label>
-        <button type="submit">Submit</button>
+        <br />
+        <button type="submit" class='clickable-cell'>Submit</button>
       </form>
     </div>
   );

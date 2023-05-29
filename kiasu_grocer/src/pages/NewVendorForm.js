@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const NewVendorForm = () => {
   const [vendorName, setVendorName] = useState('');
   const [vendorEmail, setVendorEmail] = useState('');
   const [vendorPasscode, setVendorPasscode] = useState('');
+  const history = useNavigate();
 
   const handleVendorNameChange = (e) => {
     setVendorName(e.target.value);
@@ -47,6 +48,7 @@ const NewVendorForm = () => {
     } catch (err) {
       console.log("Error: ",err);
     }
+   history('/vendors/1'); // Temporary, will change 
   }
 
 return (

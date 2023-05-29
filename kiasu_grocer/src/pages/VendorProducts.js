@@ -24,7 +24,7 @@ const VendorProduct = () => {
     <div>
       <h1>Product Page</h1>
       <button>
-        <Link to={`/vendor/${id}/newproduct`}>Create Product</Link>
+        <Link to={`/vendor/${id}/newproduct`} class='clickable-cell'>Create Product</Link>
       </button>
       <h2>Products</h2>
       <p> ----------------------------------------</p>

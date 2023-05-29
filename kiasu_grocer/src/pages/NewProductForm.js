@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 //import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 
 function ProductForm() {
@@ -12,6 +12,7 @@ function ProductForm() {
   const [expiryDate, setExpiryDate] = useState('');
   const [image, setImage] = useState(null);
   const [discount, setDiscount] = useState('0');
+  const history = useNavigate();
 
   const handleProductNameChange = (event) => {
     setProductName(event.target.value);
@@ -94,41 +95,51 @@ function ProductForm() {
       // Handle any network or other errors
       console.log('Error:', error.message);
     }
+
+    history(`/vendor/${id}/products`);
   };
 
   return (
     <div>
       <h1>Product Form</h1>
+      <Link to={`/vendor/${id}/products`} class="clickable-cell">Back to Products</Link>
       <form onSubmit={handleSubmit}>
         <label>
           Product Name:
           <input type="text" value={productName} onChange={handleProductNameChange} />
         </label>
+        <br />
         <label>
           Description:
           <textarea value={description} onChange={handleDescriptionChange}></textarea>
         </label>
+        <br />
         <label>
           Price:
           <input type="number" value={price} onChange={handlePriceChange} />
         </label>
+        <br />
         <label>
           Quantity:
           <input type="number" value={quantity} onChange={handleQuantityChange} />
         </label>
+        <br />
         <label>
           Expiry Date:
           <input type="date" value={expiryDate} onChange={handleExpiryDateChange} />
         </label>
+        <br />
         <label>
           Image:
           <input type="file" onChange={handleImageChange} />
         </label>
+        <br />
         <label>
           Discount:
           <input type="number" value={discount} onChange={handleDiscountChange} />
         </label>
-        <button type="submit">Submit</button>
+        <br />
+        <button type="submit" class='clickable-cell'>Submit</button>
       </form>
     </div>
   );

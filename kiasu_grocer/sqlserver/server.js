@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-const db = new sqlite3.Database('./data/sample.db');
+const db = new sqlite3.Database('./sqlserver/data/sample.db');
 
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS vendors (

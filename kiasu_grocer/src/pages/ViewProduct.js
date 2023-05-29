@@ -16,6 +16,7 @@ const ViewProduct = () => {
   return (
     <div>
       <h1>View Product</h1>
+      <Link to={`/vendor/${vid}/products`} class="clickable-cell">Back to Vendor</Link>
       <h2>Product ID: {id}</h2>
       <p>Product Name: {name}</p>
       <p>Description: {description}</p>
@@ -27,6 +28,7 @@ const ViewProduct = () => {
         to={`edit`}
         key={product.id}
         state={product}
+        class="clickable-cell"
         >
         Edit Product
       </Link>
