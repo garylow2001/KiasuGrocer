@@ -32,22 +32,34 @@ const DashboardCustomer = () => {
         await setItemList(itemList.concat({ ...returnedItem }))
         await setOrders(newOrders);
     }
+    const getTotalPrice = () => {
+        const listofPrices = orders.map((values,index) => {
+            return parseFloat(values.price.substring(1));
+        })
+        return listofPrices.reduce((a,v) => a = a + v, 0)
+    }
+
+    const onPayment = () => {
+        console.log(getTotalPrice())
+        setOrders([]);
+        setShowPopUp(false);
+    }
 
     return <div className="">
+
         <Navbar username={username} />
 
+        <PaymentPopup trigger={showPopup} setTrigger={() => setShowPopUp(false)} setPaid={onPayment} totalPrice={getTotalPrice()}></PaymentPopup>
         <Hero />
-
-        <PaymentPopup trigger={showPopup} >
-        </PaymentPopup>
 
         {
             orders.length === 0
                 ? ''
                 :
                 <div className="flex align-middle justify-center mx-auto">
-                <h2 className="px-5 m-auto">YOUR ORDERS:</h2>
-                <button className="box rounded-md border-2 px-5 bg-white border-slate-300 hover:bg-red-500">Pay now</button>
+                    <h2 className="px-5 m-auto">YOUR ORDERS:</h2>
+                    <button className="box rounded-md border-2 px-5 bg-white border-slate-300 hover:bg-red-500"
+                        onClick={() => setShowPopUp(true)}>Pay now</button>
                 </div>
         }
 
@@ -60,6 +72,7 @@ const DashboardCustomer = () => {
         {itemList.map((values, index) => {
             return <ItemView data={values} handleClick={removeItem} />
         })}
+
     </div>
 }
 
