@@ -12,7 +12,7 @@ const AuthVendor = () => {
     const navigate = useNavigate();
     const goToDashboard = () => navigate('/');
     return (
-        <div className="w-1/2 border-4 rounded-lg px-5 py-5 bg-orange border-black">
+        <div className="w-1/2 border-4 rounded-lg px-5 py-5 bg-orange border-black bg-orange-200">
             <h1 className="mt-6 text-center text-4xl font-coolvetica tracking-tight white"> Welcome to Kiasu Grocer</h1>
             <h1 className="mt-2 text-center text-3xl white font-coolvetica"> Sign In </h1>
             <form className="space-y-0.25 mt-8">

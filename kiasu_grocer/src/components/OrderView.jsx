@@ -31,10 +31,7 @@ function OrderView(props) {
                 </p>
                 <div onClick={() => handleClick(props.data.id)} className='space-x-5 justify-center'>
                     <button className='box border-2 rounded-md px-5 py-auto bg-white'>
-                        Buy Now
-                    </button>
-                    <button className='box border-2 rounded-md px-5 py-auto bg-white'>
-                        Add to Cart
+                        Cancel
                     </button>
                 </div>
 

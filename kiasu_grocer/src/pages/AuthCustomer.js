@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { listOfCustomers } from "../data/customer_data";
-// import axios from "axios";
-// import { useAppState } from "../AppState";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../AppState";
 
-
-const SIGN_IN_URL = ""
-const SIGN_UP_URL = ""
 
 
 const AuthCustomer = ({navigation}) => {
+    const appState = useSelector(state => state);
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const goToDashboard = () => navigate('/');
     const [formData, setFormData] = useState({
@@ -24,8 +24,9 @@ const AuthCustomer = ({navigation}) => {
         for (var i = 0; i < listOfCustomers.length; i++) {
             if (listOfCustomers[i].username === formData.username && listOfCustomers[i].password === formData.password) {
                 console.log(formData.username)
+                dispatch(login(formData.username, formData.password))
                 // navigate('/dashboardcustomer', {username: formData.username})
-                navigate('/dashboardcustomer', {state: {username: formData.username}})
+                navigate('/dashboardcustomer')
                 success = true;
             }
         }
@@ -34,8 +35,8 @@ const AuthCustomer = ({navigation}) => {
         }
     }
     return (
-        <div className="w-1/2 border-4 rounded-lg px-5 py-5 bg-orange border-black">
-            <h1 className="mt-6 text-center text-4xl font-coolvetica tracking-tight white"> Welcome to Kiasu Grocer</h1>
+        <div className="w-1/2 border-4 rounded-lg px-5 py-5 bg-orange border-black bg-orange-200">
+            <h1 className="mt-6 text-center text-4xl font-coolvetica tracking-tight"> Welcome to Kiasu Grocer</h1>
             <h1 className="mt-2 text-center text-3xl white font-coolvetica"> Sign In </h1>
             <form onSubmit={handleSubmit} className="space-y-0.25 mt-8">
                 <div className="">

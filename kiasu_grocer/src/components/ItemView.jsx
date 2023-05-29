@@ -33,9 +33,9 @@ function ItemView(props) {
                     <button className='box border-2 rounded-md px-5 py-auto bg-white'>
                         Buy Now
                     </button>
-                    <button className='box border-2 rounded-md px-5 py-auto bg-white'>
+                    {/* <button className='box border-2 rounded-md px-5 py-auto bg-white'>
                         Add to Cart
-                    </button>
+                    </button> */}
                 </div>
 
 

@@ -1,11 +1,13 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../AppState';
 
-const Navbar = (props) => {
-    //change ^
-    let username = props.username;
-    console.log("NAVBAR" + props.username)
+const Navbar = () => {
+    const appState = useSelector(state => state);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const username = appState.userLoggedIn;
     const goToAuthCustomer = () => navigate('/authcustomer');
     const goToAuthVendor = () => navigate('/authvendor');
     const LoginComponent = () => {
@@ -16,7 +18,7 @@ const Navbar = (props) => {
                 </li>
                 <li>
                     <button onClick={() => {
-                        username = null;
+                        dispatch(logout())
                         navigate('/')
                     }}
                         className='hover:text-red-700 font-semibold justify-center align-middle pt-3'>Logout</button>
