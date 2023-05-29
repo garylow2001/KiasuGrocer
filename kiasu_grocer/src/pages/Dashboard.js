@@ -58,9 +58,9 @@ const Dashboard = () => {
                 .catch(x => [])
                 .then(fList => {
                     console.log(fList);
-                    fList.forEach(element => element.then(deets => setVendorDetails(vendorDetails.push(deets))))
+                    return Promise.all(fList).then(x => x.map(promise => promise));
                 })
-                .then(x => console.log(vendorDetails));
+                .then(x => setVendorDetails(x));
         };
 
         const handleGeolocationError = (error) => {
@@ -84,19 +84,20 @@ const Dashboard = () => {
         if(!rendered) {
             fetchData();
             rendered = true;
-            // NEW LINES OF CODE HERE
-            // const newList = itemList.map((values,index) => {
-            //     const newValue = vendorDetails[index][0].toString() + " " + vendorDetails[index][1].toString() + " " + vendorDetails[index][2].toFixed(2).toString();
-            //     return {...itemList[index], vendor:newValue};
-            // })
-            // setItemList(newList);
-            // THIS SHOULD SET THE VALUES OF THE ITEMLIST SUCH THAT the "VENDOR" = vendor + street name + distance rounded to 2dp
         }
     },[]);
 
     //here
     useEffect(() => {
         console.log(vendorDetails);
+        const newList = itemList.map((values,index) => {
+            const newValue = vendorDetails[index][0].toString() + " " + 
+                vendorDetails[index][2].toString() + " (" + 
+                vendorDetails[index][1].toFixed(2).toString() + "km away)";
+            return {...itemList[index], vendor:newValue};
+        })
+        console.log(newList);
+        setItemList(newList);
     }, [vendorDetails])
 
     return <div className="">
