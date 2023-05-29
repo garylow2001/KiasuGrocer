@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 const ViewProduct = () => {
   const location = useLocation();
-  const { id } = useParams();
+  const { vid, id } = useParams();
   const product = location.state; 
-  console.log("location: ", product);
 
   if (!product) {
     return <div>Loading...</div>;
   }
 
   const { name, description, price, quantity, expiryDate, image } = product;
+
 
   return (
     <div>
@@ -23,6 +23,13 @@ const ViewProduct = () => {
       <p>Quantity: {quantity}</p>
       <p>Expiry Date: {expiryDate}</p>
       <p>Image: {image}</p>
+      <Link 
+        to={`edit`}
+        key={product.id}
+        state={product}
+        >
+        Edit Product
+      </Link>
     </div>
   );
 };

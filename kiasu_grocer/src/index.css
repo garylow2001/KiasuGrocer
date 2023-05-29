@@ -19,5 +19,7 @@ code {
 .product-cell {
   flex: 1 5 33%; /* Adjust the width as desired */
   /* Add any other styles you need */
+  background-color: #fff;
+  border: 1px solid #ccc;
 }
 

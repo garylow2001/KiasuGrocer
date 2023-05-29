@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 const VendorProduct = () => {
+  const { id } = useParams();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -11,7 +12,7 @@ const VendorProduct = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/products');
+      const response = await fetch(`http://localhost:5000/api/products/vendor/${id}`);
       const data = await response.json();
       setData(data);
     } catch (error) {
@@ -23,14 +24,17 @@ const VendorProduct = () => {
     <div>
       <h1>Product Page</h1>
       <button>
-        <Link to="/ProductEdit">Create Product</Link>
+        <Link to={`/vendor/${id}/newproduct`}>Create Product</Link>
       </button>
       <h2>Products</h2>
+      <p> ----------------------------------------</p>
+      <p>Click on a product to view it.</p>
+      <p> ----------------------------------------</p>
       <div className="product-container">
         {data.map((product) => (
-          console.log("product: ", product),
           <Link
-            to={ `/viewproduct/${product.id}`}
+            to={ `/vendor/${id}/product/${product.id}`}
+            key={product.id}
             state = {product} 
               //{
               //  name: product.name,
@@ -42,7 +46,7 @@ const VendorProduct = () => {
               //},
             className="product-cell"
           >
-            {product.name}
+            Product: {product.name}
           </Link>
         ))}
       </div>

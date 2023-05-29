@@ -14,8 +14,9 @@ db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS vendors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     passcode TEXT,
-    email TEXT UNIQUE
-    )`);
+    email TEXT UNIQUE,
+    name TEXT
+  )`);
 
   db.run(`CREATE TABLE IF NOT EXISTS products (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -45,16 +46,17 @@ app.get('/api/vendors', (req, res) => {
 });
 
 // API for creating vendors
-app.get('/api/vendors/create', (req, res) => {
-  const { passcode, email } = req.query;
+app.post('/api/vendors/create', (req, res) => {
+  const { passcode, email, name } = req.body;
 
   if (!passcode || !email) {
     res.status(400).json({ error: 'Missing required fields' });
     return;
   }
 
-  db.run(`INSERT INTO vendors (passcode, email) VALUES (?, ?);`, [passcode, email], (error) => {
+  db.run(`INSERT INTO vendors (passcode, email, name) VALUES (?, ?, ?);`, [passcode, email, name], (error) => {
     if (error) {
+      console.log(error)
       res.status(500).json({ error: 'An error occurred' });
     } else {
       res.json({ message: 'Vendor created successfully' });
@@ -83,6 +85,17 @@ app.get('/api/vendors/delete', (req, res) => {
 // API for getting products
 app.get('/api/products', (req, res) => {
   db.all(`SELECT * FROM products;`, (error, rows) => {
+    if (error) {
+      res.status(500).json({ error: 'An error occurred' });
+    } else {
+      res.json(rows);
+    }
+  });
+});
+
+app.get('/api/products/vendor/:id', (req, res) => {
+  const { id } = req.params;
+  db.all(`SELECT * FROM products WHERE vendor_id = ?;`, [id], (error, rows) => {
     if (error) {
       res.status(500).json({ error: 'An error occurred' });
     } else {
@@ -137,8 +150,9 @@ app.get('/api/products/:id', (req, res) => getProductById(req, res, (row, res) =
 // API for updating products
 app.post('/api/products/update/:id', (req, res) => {
   const { id } = req.params;
-  const { name, price, description, discount, expiry_date, quantity, image } = req.query;
+  const { name, price, description, discount, expiry_date, quantity, image } = req.body;
 
+  console.log("name:" + name, "price:" + price, "descr:" + description, "disc" + discount, "quant" + quantity)
   if (!name || !price || !description || !discount || !quantity) {
     res.status(400).json({ error: 'Missing required fields' });
     return;

@@ -7,7 +7,8 @@ import DashboardCustomer from './pages/DashboardCustomer';
 import VendorProducts from './pages/VendorProducts';
 import ViewProduct from './pages/ViewProduct';
 import NewProductForm from './pages/NewProductForm'
-
+import CreateVendor from './pages/NewVendorForm';
+import EditProduct from './pages/EditProduct';
 
 function App() {
   return (
@@ -20,9 +21,11 @@ function App() {
           <Route path="/authcustomer" element={<AuthCustomer />} />
           <Route path="/authvendor" element={<AuthVendor />} />
           <Route path="/dashboardcustomer" element={<DashboardCustomer/>} />
-          <Route exact path="/vendor/vendorproducts" element={<VendorProducts/>} />
-          <Route path="/vendor/viewproduct/:id" element={<ViewProduct/>} />
+          <Route exact path="/vendor/:id/products" element={<VendorProducts/>} />
+          <Route path="/vendor/:vid/product/:id" element={<ViewProduct/>} />
           <Route path="/vendor/:id/newproduct" element={<NewProductForm/>} />
+          <Route path="/vendor/:vid/product/:id/edit" element={<EditProduct/>} />
+          <Route path="/vendorsignup" element={<CreateVendor />} />
         </Routes>
       </BrowserRouter>
     </main>
