@@ -7,11 +7,11 @@ function PaymentPopup(props) {
       <div className='relative p-8 w-full bg-white'>
         <h1>PAYMENT</h1>
         <h2>Total: ${props.totalPrice}</h2>
-        <img className='mx-auto' src={require('../assets/fakeQRcode.png')} height={500} width={500} />
+        <img className='mx-auto' src={require('../assets/fakeQRcode.png')} height={400} width={400} />
         <button className='absolute top-4 right-4'
           onClick={() => props.setTrigger()}>x</button>
-        <button className='absolute bottom-4 left-1/2 justify-center'
-          onClick={() => props.setPaid()}>pay</button>
+        <button className='absolute bottom-4 left-1/2 -translate-x-1/2 box border-2 rounded-md px-5 py-2 bg-red-500 text-white'
+          onClick={() => props.setPaid()}>Confirm payment</button>
         {props.children}
       </div>
     </div>

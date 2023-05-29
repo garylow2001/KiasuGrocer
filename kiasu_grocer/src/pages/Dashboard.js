@@ -82,7 +82,7 @@ const Dashboard = () => {
     let rendered = false;
     useEffect(() => {
         if(!rendered) {
-            fetchData();
+            // fetchData();
             rendered = true;
         }
     },[]);
@@ -90,14 +90,14 @@ const Dashboard = () => {
     //here
     useEffect(() => {
         console.log(vendorDetails);
-        const newList = itemList.map((values,index) => {
-            const newValue = vendorDetails[index][0].toString() + " " + 
-                vendorDetails[index][2].toString() + " (" + 
-                vendorDetails[index][1].toFixed(2).toString() + "km away)";
-            return {...itemList[index], vendor:newValue};
-        })
-        console.log(newList);
-        setItemList(newList);
+        // const newList = itemList.map((values,index) => {
+        //     const newValue = vendorDetails[index][0].toString() + " " + 
+        //         vendorDetails[index][2].toString() + " (" + 
+        //         vendorDetails[index][1].toFixed(2).toString() + "km away)";
+        //     return {...itemList[index], vendor:newValue};
+        // })
+        // console.log(newList);
+        // setItemList(newList);
     }, [vendorDetails])
 
     return <div className="">

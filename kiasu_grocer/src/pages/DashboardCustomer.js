@@ -67,7 +67,7 @@ const DashboardCustomer = () => {
             return <OrderView data={values} handleClick={cancelOrder} />
         })}
 
-        <h2>DISCOUNTED ITEMS NEAR YOU:</h2>
+        {itemList.length === 0 ? '' : <h2>DISCOUNTED ITEMS NEAR YOU:</h2>}
 
         {itemList.map((values, index) => {
             return <ItemView data={values} handleClick={removeItem} />
