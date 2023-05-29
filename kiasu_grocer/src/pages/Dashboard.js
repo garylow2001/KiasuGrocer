@@ -7,29 +7,47 @@ import { useNavigate } from "react-router-dom";
 
 
 const Dashboard = () => {
-    const [vendorDetails, setVendorDetails] = useState([]);
+    const [vendorDetails, setVendorDetails] = useState(null);
     const navigate = useNavigate();
     const [itemList, setItemList] = useState(listOfItems);
     const goToAuthCustomer = async () => await navigate('/authcustomer');
 
 
-    //*************FROM HERE ARE TO BE ADDED*****************
+    /**
+     * Haversine function to calculate dist between 2 places
+     * @param lat1 user latitude
+     * @param lon1 user longitude
+     * @param lat2 destination latitude
+     * @param lon2 destination longitude
+     * @returns distance between the 2 coordinates
+     */
     const calcDistance = (lat1, lon1, lat2, lon2) => {
-        var R = 6371; // Radius of the earth in km
-        var degLat = degToRad(lat2 - lat1);  // deg2rad below
+        var R = 6371; 
+        var degLat = degToRad(lat2 - lat1);
         var degLon = degToRad(lon2 - lon1);
         var a = Math.sin(degLat / 2) * Math.sin(degLat / 2) +
             Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) *
             Math.sin(degLon / 2) * Math.sin(degLon / 2);
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        var d = R * c; // Distance in km
+        var d = R * c;
         return d;
     }
 
+    /**
+     * Function to convert degree to radian
+     * @param deg angle in degrees 
+     * @returns angle in radian
+     */
     function degToRad(deg) {
         return deg * (Math.PI / 180)
     }
 
+    /**
+     * First API call that requests addresses of all supermarkets in SG (Limit to 5 because I'm not rich)
+     * Second API call translates the address into latitude and longitude coordinates
+     * Get your own API key from here and test it yourself : https://positionstack.com/
+     * @returns A promise object that encapsulates an array of arrays with {address, latitude, longitude, market name}
+     */
     const RESTresponse = () => {
         var requestOptions = {
             method: 'GET',
@@ -49,6 +67,10 @@ const Dashboard = () => {
         return markets;
     }
 
+    /**
+     * Gets user location and manipulate the monad from above API call to produce an array with needed data
+     * @returns an array encapsulating {address, distance, market name}
+     */
     const fetchData = () => {
         const handleGeolocationSuccess = (position) => {
             const { latitude, longitude } = position.coords;
@@ -62,7 +84,6 @@ const Dashboard = () => {
                 })
                 .then(x => setVendorDetails(x));
         };
-
         const handleGeolocationError = (error) => {
            console.log("Geolocation error:", error);
            return [];
@@ -79,25 +100,31 @@ const Dashboard = () => {
         }
     }
 
+    /**
+     * effect hook that gets called upon rendering of the webpage
+     */
     let rendered = false;
     useEffect(() => {
         if(!rendered) {
-            // fetchData();
+            fetchData();
             rendered = true;
         }
     },[]);
 
-    //here
+    /**
+     * effect hook that gets caled whenever the market or vendor details are updated
+     */
     useEffect(() => {
-        console.log(vendorDetails);
-        // const newList = itemList.map((values,index) => {
-        //     const newValue = vendorDetails[index][0].toString() + " " + 
-        //         vendorDetails[index][2].toString() + " (" + 
-        //         vendorDetails[index][1].toFixed(2).toString() + "km away)";
-        //     return {...itemList[index], vendor:newValue};
-        // })
-        // console.log(newList);
-        // setItemList(newList);
+        if(vendorDetails != null) {
+            const newList = itemList.map((values,index) => {
+                const newValue = vendorDetails[index][0].toString() + " " + 
+                    vendorDetails[index][2].toString() + " (" + 
+                    vendorDetails[index][1].toFixed(2).toString() + "km away)";
+                return {...itemList[index], vendor:newValue};
+            })
+            console.log(newList);
+            setItemList(newList);
+        }
     }, [vendorDetails])
 
     return <div className="">
