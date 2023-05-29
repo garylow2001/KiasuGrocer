@@ -75,12 +75,12 @@ const Dashboard = () => {
         const handleGeolocationSuccess = (position) => {
             const { latitude, longitude } = position.coords;
             return RESTresponse().then(element => 
-                    element.map(promise => promise.then(x => [x[0], calcDistance(latitude, longitude, x[1], x[2]), x[3]]))
-                        .filter(promise => promise.then(x => x[1] < 3)))
+                    element.map(promise => promise.then(x => [x[0], calcDistance(latitude, longitude, x[1], x[2]), x[3]])))
                 .catch(x => [])
                 .then(fList => {
                     console.log(fList);
-                    return Promise.all(fList).then(x => x.map(promise => promise));
+                    return Promise.all(fList).then(x => x.map(promise => promise)
+                        .filter(x => x[1] < 100));
                 })
                 .then(x => setVendorDetails(x));
         };
