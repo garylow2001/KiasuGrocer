@@ -31,7 +31,7 @@ const AuthCustomer = ({navigation}) => {
             }
         }
         if (!success) {
-            alert("wrong username/password" + formData.username + " " + formData.password)
+            alert("wrong username/password")
         }
     }
     return (

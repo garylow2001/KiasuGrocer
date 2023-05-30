@@ -6,6 +6,7 @@ import { listOfItems } from "../data/item_list";
 import { customerOrders } from "../data/customer_orders";
 import { useSelector, useDispatch } from "react-redux";
 import OrderView from "../components/OrderView";
+import PaymentPopup from "../components/PaymentPopup";
 
 const DashboardCustomer = () => {
     const appState = useSelector(state => state);
@@ -14,6 +15,7 @@ const DashboardCustomer = () => {
     // console.log("DASHBOARD APPSTATE " + appState.userLoggedIn);
 
     const [itemList, setItemList] = useState(listOfItems);
+    const [showPopup, setShowPopUp] = useState(false);
     const [orders, setOrders] = useState(customerOrders);
     const username = "USER"; //must change
     const removeItem = async (idx) => {
@@ -30,10 +32,24 @@ const DashboardCustomer = () => {
         await setItemList(itemList.concat({ ...returnedItem }))
         await setOrders(newOrders);
     }
+    const getTotalPrice = () => {
+        const listofPrices = orders.map((values,index) => {
+            return parseFloat(values.price.substring(1));
+        })
+        return listofPrices.reduce((a,v) => a = a + v, 0)
+    }
+
+    const onPayment = () => {
+        console.log(getTotalPrice())
+        setOrders([]);
+        setShowPopUp(false);
+    }
 
     return <div className="">
+
         <Navbar username={username} />
 
+        <PaymentPopup trigger={showPopup} setTrigger={() => setShowPopUp(false)} setPaid={onPayment} totalPrice={getTotalPrice()}></PaymentPopup>
         <Hero />
 
         {
@@ -41,8 +57,9 @@ const DashboardCustomer = () => {
                 ? ''
                 :
                 <div className="flex align-middle justify-center mx-auto">
-                <h2 className="px-5 m-auto">YOUR ORDERS:</h2>
-                <button className="box rounded-md border-2 px-5 bg-white border-slate-300 hover:bg-red-500">Pay now</button>
+                    <h2 className="px-5 m-auto">YOUR ORDERS:</h2>
+                    <button className="box rounded-md border-2 px-5 bg-white border-slate-300 hover:bg-red-500"
+                        onClick={() => setShowPopUp(true)}>Pay now</button>
                 </div>
         }
 
@@ -50,11 +67,12 @@ const DashboardCustomer = () => {
             return <OrderView data={values} handleClick={cancelOrder} />
         })}
 
-        <h2>DISCOUNTED ITEMS NEAR YOU:</h2>
+        {itemList.length === 0 ? '' : <h2>DISCOUNTED ITEMS NEAR YOU:</h2>}
 
         {itemList.map((values, index) => {
             return <ItemView data={values} handleClick={removeItem} />
         })}
+
     </div>
 }
 
