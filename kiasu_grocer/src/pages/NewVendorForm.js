@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const NewVendorForm = () => {
+  const { vid } = useState('1')
   const [vendorName, setVendorName] = useState('');
   const [vendorEmail, setVendorEmail] = useState('');
   const [vendorPasscode, setVendorPasscode] = useState('');
@@ -39,16 +40,22 @@ const NewVendorForm = () => {
       
       if (response.ok) {
         console.log('Vendor created successfully!');
+        const data = await response.json()
+        console.log("data: ",data.vid)
+        const { vid } = data.vid;
+        console.log(vid)
         setVendorName('');
         setVendorEmail('');
         setVendorPasscode('');
+        history(`/vendor/${data.vid}/products`); // Temporary, will change 
       } else {
         console.log('Vendor creation failed!');
       }
     } catch (err) {
       console.log("Error: ",err);
     }
-   history('/vendors/1'); // Temporary, will change 
+
+    
   }
 
 return (

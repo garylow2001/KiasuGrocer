@@ -49,17 +49,45 @@ app.get('/api/vendors', (req, res) => {
 app.post('/api/vendors/create', (req, res) => {
   const { passcode, email, name } = req.body;
 
-  if (!passcode || !email) {
+  if (!passcode) {
     res.status(400).json({ error: 'Missing required fields' });
     return;
   }
 
-  db.run(`INSERT INTO vendors (passcode, email, name) VALUES (?, ?, ?);`, [passcode, email, name], (error) => {
+  db.run(`INSERT INTO vendors (passcode, email, name) VALUES (?, ?, ?);`, [passcode, email, name], function(error) {
     if (error) {
-      console.log(error)
+      console.log(error);
       res.status(500).json({ error: 'An error occurred' });
     } else {
-      res.json({ message: 'Vendor created successfully' });
+      db.get('SELECT id FROM vendors WHERE ROWID = last_insert_rowid();', (err, row) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ error: 'An error occurred' });
+        } else {
+          const vendorId = row.id;
+          console.log(vendorId)
+          res.json({ vid: vendorId, message: 'Vendor created successfully' });
+        }
+      });
+    }
+  });
+})
+
+app.post('/api/vendors/login', (req, res) => {
+  const { name, passcode } = req.body;
+  console.log(req.body)
+  if (!name || !passcode) {
+    res.status(400).json({ error: 'Missing required fields' });
+    return;
+  }
+
+  db.get(`SELECT * FROM vendors WHERE name = ? AND passcode = ?;`, [name, passcode], (error, row) => {
+    if (error) {
+      res.status(500).json({ error: 'An error occurred' });
+    } else if (!row) {
+      res.status(404).json({ error: 'Vendor not found' });
+    } else {
+      res.json({vid: row.id});
     }
   });
 });
