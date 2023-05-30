@@ -63,8 +63,12 @@ return (
       
       <label htmlFor="vendorPasscode">Vendor Passcode</label>
       <input type="text" id="vendorPasscode" value={vendorPasscode} onChange={handleVendorPasscodeChange} />
-      
-      <button type="submit">Create Vendor</button>
+      <br />
+      <button type="submit" className="group relative flex w-1/2 m-auto justify-center rounded-md 
+                 bg-black py-2 px-4 
+                text-sm font-coolvetica text-white hover:bg-darkgrey mb-5">
+        Create Vendor
+      </button>
     </form>
   </div>
 );

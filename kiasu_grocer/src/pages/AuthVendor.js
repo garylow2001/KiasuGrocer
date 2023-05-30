@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 // import axios from "axios";
 // import { useAppState } from "../AppState";
 
@@ -53,11 +53,12 @@ const AuthVendor = () => {
                     </button>
                 </div>
             </form>
-            <button className="group relative flex w-1/2 m-auto justify-center rounded-md 
+            <Link to={"../vendorsignup"} 
+            className="group relative flex w-1/2 m-auto justify-center rounded-md 
                  bg-black py-2 px-4 
                 text-sm font-coolvetica text-white hover:bg-darkgrey mb-5">
                 Or Click Here To Sign up
-            </button>
+            </Link>
             <button className="underline" onClick={goToDashboard}>
                 Back to Dashboard
             </button>
