@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: bisque;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-cell {
+  flex: 1 5 33%; /* Adjust the width as desired */
+  /* Add any other styles you need */
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.clickable-cell{
+  background-color: #ffc;
+  border: 1px solid #ccc;
+}
+
