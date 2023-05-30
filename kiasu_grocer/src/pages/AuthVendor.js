@@ -1,29 +1,52 @@
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-// import axios from "axios";
-// import { useAppState } from "../AppState";
+import { listOfVendors } from "../data/vendor_data";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../AppState";
 
-
-const SIGN_IN_URL = ""
-const SIGN_UP_URL = ""
 
 
 const AuthVendor = () => {
     const navigate = useNavigate();
     const goToDashboard = () => navigate('/');
+    const appState = useSelector(state => state);
+    const dispatch = useDispatch();
+    const [formData, setFormData] = useState({
+        username: "",
+        password: ""
+    })
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
+    }
+    const handleSubmit = async () => {
+        let success = false;
+        for (var i = 0; i < listOfVendors.length; i++) {
+            if (listOfVendors[i].username === formData.username && listOfVendors[i].password === formData.password) {
+                console.log(formData.username)
+                dispatch(login(formData.username, formData.password))
+                navigate('/dashboardcustomer', {username: formData.username}) //CHANGE '/dashboardcustomer' TO new Vendor page
+                navigate('/dashboardcustomer') //CHANGE '/dashboardcustomer' TO new Vendor page
+                success = true;
+            }
+        }
+        if (!success) {
+            alert("wrong username/password")
+        }
+    }
+
     return (
         <div className="w-1/2 border-4 rounded-lg px-5 py-5 bg-orange border-black bg-orange-200">
             <h1 className="mt-6 text-center text-4xl font-coolvetica tracking-tight white"> Welcome to Kiasu Grocer</h1>
-            <h1 className="mt-2 text-center text-3xl white font-coolvetica"> Sign In </h1>
+            <h1 className="mt-2 text-center text-3xl white font-coolvetica"> Vendor Sign In </h1>
             <form className="space-y-0.25 mt-8">
                 <div className="">
-                    {/* <label htmlFor="username">Username:</label> */}
                     <input
                         type="text"
                         id="username"
                         autoComplete="off"
-                        // onChange= {handleChange}
-                        // value = {formData.username}
+                        onChange= {handleChange}
+                        value = {formData.username}
                         required
                         placeholder="Username..."
                         className="relative block w-1/2 m-auto appearance-none rounded-md border border-gray-300 
@@ -32,12 +55,11 @@ const AuthVendor = () => {
                     />
                 </div>
                 <div className="">
-                    {/* <label htmlFor="password">Password:</label> */}
                     <input
                         type="password"
                         id="password"
-                        // onChange={handleChange}
-                        // value = {formData.password}
+                        onChange={handleChange}
+                        value = {formData.password}
                         required
                         placeholder="Password..."
                         className="relative block w-1/2 m-auto appearance-none rounded-md border border-gray-300 

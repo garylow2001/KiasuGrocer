@@ -1,7 +1,14 @@
-export const vendorList = [
+export const listOfVendors = [
     {
-        vendor: "",
-        address: "",
-        distance: 2,
-    }
+        username: "SHENG SIONG SUPERMARKET",
+        password: "test",
+    },
+    {
+        username: "GIANT",
+        password: "test",
+    },
+    {
+        username: "COLD STORAGE",
+        password: "test",
+    },
 ]

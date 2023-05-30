@@ -14,7 +14,7 @@ const DashboardCustomer = () => {
 
     // console.log("DASHBOARD APPSTATE " + appState.userLoggedIn);
 
-    const [itemList, setItemList] = useState(listOfItems);
+    const [itemList, setItemList] = useState(appState.items);
     const [showPopup, setShowPopUp] = useState(false);
     const [orders, setOrders] = useState(customerOrders);
     const username = "USER"; //must change
