@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
-// import axios from "axios";
-// import { useAppState } from "../AppState";
-
+import { listOfVendors } from "../data/vendor_data";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../AppState";
 
 const SIGN_IN_URL = "http://localhost:5000/api/vendors/login"
 const SIGN_UP_URL = ""
@@ -47,10 +48,9 @@ const AuthVendor = () => {
     return (
         <div className="w-1/2 border-4 rounded-lg px-5 py-5 bg-orange border-black bg-orange-200">
             <h1 className="mt-6 text-center text-4xl font-coolvetica tracking-tight white"> Welcome to Kiasu Grocer</h1>
-            <h1 className="mt-2 text-center text-3xl white font-coolvetica"> Sign In </h1>
+            <h1 className="mt-2 text-center text-3xl white font-coolvetica"> Vendor Sign In </h1>
             <form className="space-y-0.25 mt-8">
                 <div className="">
-                    {/* <label htmlFor="username">Username:</label> */}
                     <input
                         type="text"
                         id="name"
@@ -65,7 +65,6 @@ const AuthVendor = () => {
                     />
                 </div>
                 <div className="">
-                    {/* <label htmlFor="password">Password:</label> */}
                     <input
                         type="password"
                         id="passcode"

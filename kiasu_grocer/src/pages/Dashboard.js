@@ -4,9 +4,13 @@ import Hero from "../components/Hero";
 import ItemView from "../components/ItemView";
 import { listOfItems } from "../data/item_list";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setItems } from "../AppState";
 
 
 const Dashboard = () => {
+    const appState = useSelector(state => state);
+    const dispatch = useDispatch();
     const [vendorDetails, setVendorDetails] = useState(null);
     const navigate = useNavigate();
     const [itemList, setItemList] = useState(listOfItems);
@@ -123,6 +127,7 @@ const Dashboard = () => {
                 return {...itemList[index], vendor:newValue};
             })
             console.log(newList);
+            dispatch(setItems(newList));
             setItemList(newList);
         }
     }, [vendorDetails])

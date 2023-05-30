@@ -1,7 +1,4 @@
-import { vendorList } from "./vendor_data"
 
-
-const listOfVendors = vendorList;
 export const listOfItems = [
     {
         id: 1,
@@ -36,6 +33,3 @@ export const listOfItems = [
         listing_end: "2 June 2023",
     },
 ]
-
-
-///perform data logic on seeded list of items

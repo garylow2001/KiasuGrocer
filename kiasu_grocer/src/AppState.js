@@ -5,6 +5,7 @@ import {createStore} from 'redux';
 const initialState = {
     isLoggedIn : false,
     userLoggedIn : null,
+    items: [],
 }
 
 // REDUCER
@@ -22,6 +23,11 @@ const globalReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: false,
                 userLoggedIn: null,
+            }
+        case 'SETITEMS':
+            return {
+                ...state,
+                items: action.payload.items,
             }
         default:
             return state;
@@ -42,6 +48,12 @@ export const login = (username, password) => {
 export const logout = () => {
     return {
         type: 'LOGOUT'
+    }
+}
+export const setItems = (items) => {
+    return {
+        type: 'SETITEMS',
+        payload: {items},
     }
 }
 
