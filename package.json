@@ -52,5 +52,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.0.1"
+  },
+  "engines": {
+    "node": "18.12.1"
   }
 }
